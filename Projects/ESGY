@@ -1,0 +1,273 @@
+# ============================================================
+# ESG Returns + Fund Flows vs Interest Rates
+# Statistical Analysis
+# ============================================================
+
+# Install first if needed:
+# pip install yfinance pandas numpy matplotlib statsmodels pandas_datareader openpyxl
+
+import yfinance as yf
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from pandas_datareader import data as pdr
+
+# ------------------------------------------------------------
+# 1. SETTINGS
+# ------------------------------------------------------------
+
+start_date = "2019-01-01"
+end_date = "2026-05-12"
+
+esg_etfs = ["ESGU", "SUSA", "ICLN"]
+benchmark = "SPY"
+
+# FRED variables
+# FEDFUNDS = Federal Funds Rate
+# DGS10 = 10-Year Treasury Yield
+# VIXCLS = VIX
+fred_series = ["FEDFUNDS", "DGS10", "VIXCLS"]
+
+# ------------------------------------------------------------
+# 2. DOWNLOAD ETF PRICE DATA
+# ------------------------------------------------------------
+
+tickers = esg_etfs + [benchmark]
+
+prices = yf.download(
+    tickers,
+    start=start_date,
+    end=end_date,
+    auto_adjust=True
+)["Close"]
+
+monthly_prices = prices.resample("ME").last()
+
+monthly_returns = monthly_prices.pct_change().dropna()
+
+monthly_returns.columns = [col + "_Return" for col in monthly_returns.columns]
+
+print("Monthly Returns:")
+print(monthly_returns.head())
+
+# ------------------------------------------------------------
+# 3. DOWNLOAD INTEREST RATE / MACRO DATA FROM FRED
+# ------------------------------------------------------------
+
+fred_data = pd.DataFrame()
+
+for series in fred_series:
+    fred_data[series] = pdr.DataReader(series, "fred", start_date, end_date)[series]
+
+monthly_fred = fred_data.resample("ME").last()
+
+monthly_fred["FEDFUNDS_Change"] = monthly_fred["FEDFUNDS"].diff()
+monthly_fred["DGS10_Change"] = monthly_fred["DGS10"].diff()
+
+print("FRED Data:")
+print(monthly_fred.head())
+
+# ------------------------------------------------------------
+# 4. CREATE FUND FLOW DATA
+# ------------------------------------------------------------
+# IMPORTANT:
+# Free ETF flow data is harder to access directly.
+# If you have monthly ESG fund flow data from ETF.com, Morningstar,
+# Bloomberg, FactSet, Kaggle, etc., load it here.
+#
+# Expected format:
+# Date | ESG_Flow
+#
+# Example:
+# flows = pd.read_excel("esg_fund_flows.xlsx")
+# flows["Date"] = pd.to_datetime(flows["Date"])
+# flows = flows.set_index("Date").resample("ME").sum()
+
+# TEMPORARY OPTION:
+# This creates a placeholder flow variable using AUM logic.
+# Replace this with real flow data when available.
+
+aum_file_available = False
+
+if aum_file_available:
+    flows = pd.read_excel("esg_fund_flows.xlsx")
+    flows["Date"] = pd.to_datetime(flows["Date"])
+    flows = flows.set_index("Date").resample("ME").sum()
+else:
+    flows = pd.DataFrame(index=monthly_returns.index)
+    flows["ESG_Flow"] = np.nan
+
+# ------------------------------------------------------------
+# 5. COMBINE DATASETS
+# ------------------------------------------------------------
+
+df = monthly_returns.join(monthly_fred, how="inner")
+df = df.join(flows, how="left")
+
+# Market return control
+df["Market_Return"] = df["SPY_Return"]
+
+# ESG excess return vs SPY
+df["ESGU_Excess_Return"] = df["ESGU_Return"] - df["SPY_Return"]
+df["SUSA_Excess_Return"] = df["SUSA_Return"] - df["SPY_Return"]
+df["ICLN_Excess_Return"] = df["ICLN_Return"] - df["SPY_Return"]
+
+df = df.dropna(subset=[
+    "ESGU_Return",
+    "SUSA_Return",
+    "ICLN_Return",
+    "SPY_Return",
+    "FEDFUNDS",
+    "DGS10",
+    "VIXCLS"
+])
+
+print("Final Dataset:")
+print(df.head())
+
+# ------------------------------------------------------------
+# 6. DESCRIPTIVE STATISTICS
+# ------------------------------------------------------------
+
+print("\nDescriptive Statistics:")
+print(df.describe())
+
+# ------------------------------------------------------------
+# 7. CORRELATION MATRIX
+# ------------------------------------------------------------
+
+corr_vars = [
+    "ESGU_Return",
+    "SUSA_Return",
+    "ICLN_Return",
+    "SPY_Return",
+    "FEDFUNDS",
+    "DGS10",
+    "FEDFUNDS_Change",
+    "DGS10_Change",
+    "VIXCLS"
+]
+
+correlation_matrix = df[corr_vars].corr()
+
+print("\nCorrelation Matrix:")
+print(correlation_matrix)
+
+# ------------------------------------------------------------
+# 8. REGRESSION MODEL 1:
+# ESG RETURNS VS INTEREST RATES
+# ------------------------------------------------------------
+
+def run_regression(y_var, x_vars, data):
+    regression_data = data[[y_var] + x_vars].dropna()
+
+    y = regression_data[y_var]
+    X = regression_data[x_vars]
+    X = sm.add_constant(X)
+
+    model = sm.OLS(y, X).fit()
+    print("\n===================================================")
+    print(f"Regression Results: {y_var}")
+    print("===================================================")
+    print(model.summary())
+
+    return model
+
+x_variables_returns = [
+    "FEDFUNDS",
+    "DGS10",
+    "Market_Return",
+    "VIXCLS"
+]
+
+model_esgu = run_regression("ESGU_Return", x_variables_returns, df)
+model_susa = run_regression("SUSA_Return", x_variables_returns, df)
+model_icln = run_regression("ICLN_Return", x_variables_returns, df)
+
+# ------------------------------------------------------------
+# 9. REGRESSION MODEL 2:
+# ESG EXCESS RETURNS VS INTEREST RATES
+# ------------------------------------------------------------
+
+x_variables_excess = [
+    "FEDFUNDS",
+    "DGS10",
+    "VIXCLS"
+]
+
+model_esgu_excess = run_regression("ESGU_Excess_Return", x_variables_excess, df)
+model_susa_excess = run_regression("SUSA_Excess_Return", x_variables_excess, df)
+model_icln_excess = run_regression("ICLN_Excess_Return", x_variables_excess, df)
+
+# ------------------------------------------------------------
+# 10. REGRESSION MODEL 3:
+# ESG FUND FLOWS VS INTEREST RATES
+# ------------------------------------------------------------
+# This will only run if you add real ESG_Flow data.
+
+if df["ESG_Flow"].notna().sum() > 10:
+    x_variables_flows = [
+        "FEDFUNDS",
+        "DGS10",
+        "ESGU_Return",
+        "Market_Return",
+        "VIXCLS"
+    ]
+
+    model_flows = run_regression("ESG_Flow", x_variables_flows, df)
+else:
+    print("\nFund flow regression skipped.")
+    print("Reason: ESG_Flow data is missing.")
+    print("Add real monthly fund flow data to run this model.")
+
+# ------------------------------------------------------------
+# 11. VISUALIZATIONS
+# ------------------------------------------------------------
+
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df["ESGU_Return"], label="ESGU Return")
+plt.plot(df.index, df["SPY_Return"], label="SPY Return")
+plt.title("Monthly Returns: ESGU vs SPY")
+plt.xlabel("Date")
+plt.ylabel("Monthly Return")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df["FEDFUNDS"], label="Federal Funds Rate")
+plt.plot(df.index, df["DGS10"], label="10-Year Treasury Yield")
+plt.title("Interest Rates Over Time")
+plt.xlabel("Date")
+plt.ylabel("Rate")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(12, 6))
+plt.scatter(df["FEDFUNDS"], df["ESGU_Return"])
+plt.title("ESGU Returns vs Federal Funds Rate")
+plt.xlabel("Federal Funds Rate")
+plt.ylabel("ESGU Monthly Return")
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(12, 6))
+plt.scatter(df["DGS10"], df["ICLN_Return"])
+plt.title("ICLN Returns vs 10-Year Treasury Yield")
+plt.xlabel("10-Year Treasury Yield")
+plt.ylabel("ICLN Monthly Return")
+plt.grid(True)
+plt.show()
+
+# ------------------------------------------------------------
+# 12. EXPORT RESULTS TO EXCEL
+# ------------------------------------------------------------
+
+with pd.ExcelWriter("ESG_Interest_Rate_Analysis.xlsx") as writer:
+    df.to_excel(writer, sheet_name="Final Dataset")
+    correlation_matrix.to_excel(writer, sheet_name="Correlation Matrix")
+
+print("\nAnalysis complete.")
+print("Dataset exported as ESG_Interest_Rate_Analysis.xlsx")

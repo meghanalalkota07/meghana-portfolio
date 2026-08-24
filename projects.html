@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  font-family: 'Manrope', sans-serif;
+  background: #f9f9f9;
+  color: #2d3435;
+}
+.serif-display {
+  font-family: 'Newsreader', serif;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header class="flex justify-between items-center px-8 py-8 border-b">
+  <a href="index.html" class="serif-display text-2xl italic">Home</a>
+
+  <nav class="flex gap-8 text-sm uppercase tracking-wide">
+    <a href="projects.html" class="border-b pb-1">Projects</a>
+    <a href="thoughts.html">Thoughts</a>
+  </nav>
+
+  <a href="resume.pdf" target="_blank" class="border px-4 py-2 text-sm uppercase">
+    Download Resume
+  </a>
+</header>
+
+<!-- PROJECTS -->
+<section class="px-8 py-20 max-w-6xl mx-auto">
+
+  <h1 class="serif-display text-5xl mb-12">Projects</h1>
+
+  <div class="grid md:grid-cols-2 gap-12">
+
+    <div>
+      <h2 class="text-xl font-semibold">Trading Algorithm</h2>
+      <p class="text-sm text-gray-500 mb-2">Python, Pandas</p>
+      <p>Built predictive model for stock movement using historical data.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold">LBO Model</h2>
+      <p class="text-sm text-gray-500 mb-2">Excel, Valuation</p>
+      <p>Analyzed leveraged buyout scenarios and return projections.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold">ESG Research</h2>
+      <p class="text-sm text-gray-500 mb-2">R, Data Analysis</p>
+      <p>Conducted comparative ESG study and performance analysis.</p>
+    </div>
+
+    <div>
+      <h2 class="text-xl font-semibold">Financial Dashboard</h2>
+      <p class="text-sm text-gray-500 mb-2">SQL, Looker</p>
+      <p>Automated reporting dashboards for financial insights.</p>
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
