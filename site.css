@@ -1,0 +1,219 @@
+/* Hallmark · shared chrome · genre: editorial · nav: N6
+ * theme: custom · paper: oklch(96% 0.016 70) · accent: oklch(58% 0.16 82)
+ * display: Newsreader · body: Manrope
+ * Shared across index.html / projects.html / thoughts.html so all three
+ * pages read as one site: same masthead, same tokens, same type.
+ */
+
+html, body { overflow-x: clip; }
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+img { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* ---------- Masthead (N6) ---------- */
+
+.mast {
+  display: grid;
+  min-width: 0;
+  gap: var(--space-2xs);
+  padding: var(--space-xl) var(--space-lg) 0;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+
+.mast-utility {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.mast-utility__sep {
+  color: var(--color-rule);
+  font-size: var(--text-xs);
+}
+
+.mast-resume,
+.mast-contact {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-ink-2);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+
+.mast-resume:hover,
+.mast-contact:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.mast-resume:active,
+.mast-contact:active {
+  color: var(--color-ink);
+}
+
+.mast-line {
+  font-family: var(--font-body);
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  font-size: var(--text-xs);
+  color: var(--color-ink-2);
+  margin: 0;
+}
+
+.mast-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-style: normal;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin: var(--space-2xs) 0 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.mast-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--dur-short) var(--ease-out);
+}
+
+.mast-name a:hover {
+  color: var(--color-accent);
+}
+
+.mast-nav {
+  min-width: 0;
+  margin: var(--space-md) 0 0;
+}
+
+.mast-nav ul {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-xs) var(--space-lg);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mast-nav a {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-ink);
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+
+.mast-nav a:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.mast-nav a:active {
+  color: var(--color-ink-2);
+}
+
+.mast-nav a[aria-current="page"] {
+  border-color: var(--color-ink);
+}
+
+.mast-rule {
+  border: 0;
+  border-top: var(--rule-hair) solid var(--color-rule);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  height: 4px;
+  margin: var(--space-lg) 0 0;
+}
+
+/* ---------- Shared typographic link ---------- */
+
+.link-typographic {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 500;
+  font-style: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-accent);
+  padding-bottom: 2px;
+  transition: color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out);
+}
+
+.link-typographic:hover {
+  color: var(--color-accent);
+}
+
+.link-typographic:active {
+  color: var(--color-ink-2);
+  border-color: var(--color-ink-2);
+}
+
+/* ---------- Accessible page title (visually hidden — nav already shows it) ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Reveal keyframe ---------- */
+
+@keyframes reveal {
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 150ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 40rem) {
+  .mast-name { font-size: clamp(2.5rem, 5vw, 3.75rem); }
+}

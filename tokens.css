@@ -1,0 +1,59 @@
+/* Hallmark · tokens · theme: custom (sunflower gold / sunset warmth) */
+
+:root {
+  /* Color — paper (warm cream, tinted toward the accent hue) */
+  --color-paper:      oklch(96% 0.016 70);
+  --color-paper-2:    oklch(93% 0.018 70);
+  --color-paper-3:    oklch(90% 0.020 70);
+
+  /* Color — ink (warm near-black, never pure #000) */
+  --color-ink:        oklch(19% 0.022 50);
+  --color-ink-2:      oklch(38% 0.020 50);
+
+  /* Color — rules / hairlines */
+  --color-rule:       oklch(80% 0.018 70);
+  --color-rule-2:     oklch(86% 0.016 70);
+
+  /* Color — accent (sunflower amber) */
+  --color-accent:      oklch(58% 0.16 82);
+  --color-accent-ink:  var(--color-ink);
+  --color-focus:       oklch(52% 0.19 82);
+
+  /* Fonts */
+  --font-display: "Newsreader", ui-serif, Georgia, serif;
+  --font-body:    "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Spacing — 4pt scale */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs:  0.5rem;
+  --space-sm:  0.75rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  /* Type scale — 1.25 ratio */
+  --text-xs:   0.8rem;
+  --text-sm:   0.9rem;
+  --text-base: 1rem;
+  --text-md:   1.25rem;
+  --text-lg:   1.5625rem;
+  --text-xl:   1.9531rem;
+  --text-2xl:  2.4414rem;
+  --text-display: clamp(2.5rem, 4vw + 1.25rem, 4.75rem);
+
+  /* Motion */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long:  420ms;
+
+  /* Misc */
+  --rule-hair: 1px;
+  --radius-pill: 999px;
+}

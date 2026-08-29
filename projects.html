@@ -3,69 +3,93 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Projects — Meghana Lalkota</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
 
 <style>
-body {
-  font-family: 'Manrope', sans-serif;
-  background: #f9f9f9;
-  color: #2d3435;
+/* Hallmark · macrostructure: Portfolio Grid (single entry) · genre: editorial · nav: N6 · footer: none
+ * theme: custom · shared system, see index.html
+ */
+
+.projects-list {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 2) * 70ms);
 }
-.serif-display {
-  font-family: 'Newsreader', serif;
+
+.project {
+  max-width: 60ch;
+  padding-top: var(--space-xl);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.project__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-xl);
+  margin: 0 0 var(--space-2xs);
+}
+
+.project__stack {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-md);
+}
+
+.project__desc {
+  font-size: var(--text-base);
+  line-height: 1.65;
+  margin: 0 0 var(--space-lg);
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="flex justify-between items-center px-8 py-8 border-b">
-  <a href="index.html" class="serif-display text-2xl italic">Home</a>
-
-  <nav class="flex gap-8 text-sm uppercase tracking-wide">
-    <a href="projects.html" class="border-b pb-1">Projects</a>
-    <a href="thoughts.html">Thoughts</a>
+<header class="mast" style="--i: 0">
+  <div class="mast-utility">
+    <a class="mast-resume" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <span class="mast-utility__sep" aria-hidden="true">·</span>
+    <a class="mast-contact" href="https://mail.google.com/mail/?view=cm&fs=1&to=meghanalalkota630@gmail.com" target="_blank" rel="noopener">Contact</a>
+  </div>
+  <p class="mast-line">Financial Analyst · Data, Modeling &amp; Automation</p>
+  <p class="mast-name"><a href="index.html">Meghana Lalkota</a></p>
+  <nav class="mast-nav" aria-label="Primary">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" aria-current="page">Projects</a></li>
+      <li><a href="thoughts.html">Thoughts</a></li>
+    </ul>
   </nav>
-
-  <a href="resume.pdf" target="_blank" class="border px-4 py-2 text-sm uppercase">
-    Download Resume
-  </a>
+  <hr class="mast-rule" aria-hidden="true">
 </header>
 
-<!-- PROJECTS -->
-<section class="px-8 py-20 max-w-6xl mx-auto">
+<h1 class="sr-only">Projects</h1>
 
-  <h1 class="serif-display text-5xl mb-12">Projects</h1>
+<section class="projects-list" style="--i: 1">
 
-  <div class="grid md:grid-cols-2 gap-12">
-
-    <div>
-      <h2 class="text-xl font-semibold">Trading Algorithm</h2>
-      <p class="text-sm text-gray-500 mb-2">Python, Pandas</p>
-      <p>Built predictive model for stock movement using historical data.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold">LBO Model</h2>
-      <p class="text-sm text-gray-500 mb-2">Excel, Valuation</p>
-      <p>Analyzed leveraged buyout scenarios and return projections.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold">ESG Research</h2>
-      <p class="text-sm text-gray-500 mb-2">R, Data Analysis</p>
-      <p>Conducted comparative ESG study and performance analysis.</p>
-    </div>
-
-    <div>
-      <h2 class="text-xl font-semibold">Financial Dashboard</h2>
-      <p class="text-sm text-gray-500 mb-2">SQL, Looker</p>
-      <p>Automated reporting dashboards for financial insights.</p>
-    </div>
-
+  <div class="project">
+    <h2 class="project__title">Finance Lab</h2>
+    <p class="project__stack">Python, Streamlit, Pandas, Plotly, Yahoo Finance</p>
+    <p class="project__desc">
+      An interactive financial research platform for exploring historical stock
+      performance, valuation metrics, and peer comparisons. The application
+      fetches and caches market data, provides interactive candlestick charts
+      with moving averages, and enables normalized performance analysis across
+      multiple companies.
+    </p>
+    <a class="link-typographic" href="https://github.com/meghanalalkota07/finance-lab" target="_blank" rel="noopener">View on GitHub →</a>
   </div>
 
 </section>

@@ -1,65 +1,125 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Meghana Lalkota — Financial Analyst</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
 
 <style>
-body {
-  font-family: 'Manrope', sans-serif;
-  background-color: #f9f9f9;
-  color: #2d3435;
+/* Hallmark · macrostructure: Photographic · genre: editorial · nav: N6 · footer: none
+ * theme: custom · vibe: "sunflower gold, sunset warmth, quiet editorial portrait" · paper: oklch(96% 0.016 70) · accent: oklch(58% 0.16 82)
+ * display: Newsreader · body: Manrope · axes: light / roman-serif / chromatic-amber (~82°)
+ * studied: no · context: inferred-from-photo
+ * pre-emit critique: P4 H5 E4 S5 R5 V5
+ * contrast: pass (40-41) · nav: N6 · slop: pass (42-45) · honest: pass (46)
+ * chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · mobile: pass (34, 50-57)
+ */
+
+/* ---------- Hero row: text left, photo right (macrostructure 08, contained size) ---------- */
+
+.hero-row {
+  display: grid;
+  gap: var(--space-xl) var(--space-2xl);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  align-items: start;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 1) * 70ms);
 }
-.serif-display {
-  font-family: 'Newsreader', serif;
+
+.intro {
+  min-width: 0;
+  max-width: 52ch;
+}
+
+.intro__lede {
+  font-size: var(--text-md);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.photo-fold {
+  min-width: 0;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  justify-self: center;
+}
+
+.photo-fold__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.photo-fold__caption {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+@media (min-width: 40rem) {
+  .hero-row { grid-template-columns: 1.2fr 1fr; }
+  .photo-fold { justify-self: end; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="flex justify-between items-center px-8 py-8 border-b">
-  <span class="serif-display text-2xl italic">Home</span>
-
-  <nav class="flex gap-8 text-sm uppercase tracking-wide">
-    <a href="projects.html" class="border-b pb-1">Projects</a>
-    <a href="thoughts.html">Thoughts</a>
+<header class="mast" style="--i: 0">
+  <div class="mast-utility">
+    <a class="mast-resume" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <span class="mast-utility__sep" aria-hidden="true">·</span>
+    <a class="mast-contact" href="https://mail.google.com/mail/?view=cm&fs=1&to=meghanalalkota630@gmail.com" target="_blank" rel="noopener">Contact</a>
+  </div>
+  <p class="mast-line">Financial Analyst · Data, Modeling &amp; Automation</p>
+  <h1 class="mast-name">Meghana Lalkota</h1>
+  <nav class="mast-nav" aria-label="Primary">
+    <ul>
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="thoughts.html">Thoughts</a></li>
+    </ul>
   </nav>
-
-  <a href="resume.pdf" target="_blank" class="border px-4 py-2 text-sm uppercase">
-    Download Resume
-  </a>
+  <hr class="mast-rule" aria-hidden="true">
 </header>
 
-<!-- HERO -->
-<section class="px-8 py-20 max-w-6xl mx-auto grid md:grid-cols-2 gap-16">
-
-  <div>
-    <h1 class="serif-display text-6xl leading-tight mb-8">
-      Meghana <br/> Lalkota
-    </h1>
-
-    <p class="text-lg leading-relaxed max-w-xl">
-      Financial Analyst specializing in data analytics, financial modeling, and automation.
-      Focused on building trading models, financial dashboards, and scalable data-driven systems.
-    </p>
+<section class="hero-row" style="--i: 1">
+  <div class="intro">
+    <p class="intro__lede">
+      Hi, I am Meghana Lalkota, everyone I know calls me "Maggi", Yes like the 2-Minute instant food Maggi. I am a Financial Analys specializing in data analytics, financial modeling, and automation.
+      Focused on building trading models, financial dashboards, and scalable data-driven systems. Let's get to the professional side of me: I have a Masters in Finance from University of Cicinnati & another masters in Economics
+    from Osmania University. I am currently working at Specialty Medical Center as a Financial Analyst. </p>
   </div>
-
-  <div class="flex justify-end">
-    <img src="https://via.placeholder.com/300" class="grayscale" />
-  </div>
-
+  <figure class="photo-fold">
+    <img
+      class="photo-fold__img"
+      src="images/profile.jpeg"
+      alt="Meghana Lalkota smiling at dusk, holding a bouquet of sunflowers."
+      width="2000"
+      height="1500"
+      fetchpriority="high">
+    <figcaption class="photo-fold__caption">Some evenings end in sunflowers.</figcaption>
+  </figure>
 </section>
-
-<!-- FOOTER -->
-<footer class="border-t px-8 py-10 flex justify-end gap-8 text-sm uppercase">
-  <a href="https://www.linkedin.com" target="_blank">LinkedIn</a>
-  <a href="mailto:your@email.com">Contact</a>
-</footer>
 
 </body>
 </html>

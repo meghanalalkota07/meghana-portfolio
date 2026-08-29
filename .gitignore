@@ -9,3 +9,9 @@ venv/
 
 # Environment variables / secrets
 .env
+
+# AI design-tool scaffolding (not part of the site)
+.agents/
+.claude/
+.hallmark/
+skills-lock.json

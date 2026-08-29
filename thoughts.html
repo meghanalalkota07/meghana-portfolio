@@ -3,72 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Thoughts — Meghana Lalkota</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:wght@200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
 
 <style>
-body {
-  font-family: 'Manrope', sans-serif;
-  background: #f9f9f9;
-  color: #2d3435;
+/* Hallmark · macrostructure: Long Document (entry list) · genre: editorial · nav: N6 · footer: none
+ * theme: custom · shared system, see index.html
+ */
+
+.thoughts-list {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 2) * 70ms);
 }
-.serif-display {
-  font-family: 'Newsreader', serif;
+
+.thought {
+  max-width: 60ch;
+  padding-top: var(--space-xl);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.thought + .thought {
+  margin-top: var(--space-xl);
+}
+
+.thought__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-lg);
+  margin: 0 0 var(--space-2xs);
+}
+
+.thought__date {
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+  margin: 0 0 var(--space-md);
+}
+
+.thought__body {
+  font-size: var(--text-base);
+  line-height: 1.65;
+  margin: 0;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<header class="flex justify-between items-center px-8 py-8 border-b">
-  <a href="index.html" class="serif-display text-2xl italic">Home</a>
-
-  <nav class="flex gap-8 text-sm uppercase tracking-wide">
-    <a href="projects.html">Projects</a>
-    <a href="thoughts.html" class="border-b pb-1">Thoughts</a>
+<header class="mast" style="--i: 0">
+  <div class="mast-utility">
+    <a class="mast-resume" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <span class="mast-utility__sep" aria-hidden="true">·</span>
+    <a class="mast-contact" href="https://mail.google.com/mail/?view=cm&fs=1&to=meghanalalkota630@gmail.com" target="_blank" rel="noopener">Contact</a>
+  </div>
+  <p class="mast-line">Financial Analyst · Data, Modeling &amp; Automation</p>
+  <p class="mast-name"><a href="index.html">Meghana Lalkota</a></p>
+  <nav class="mast-nav" aria-label="Primary">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="thoughts.html" aria-current="page">Thoughts</a></li>
+    </ul>
   </nav>
-
-  <a href="resume.pdf" target="_blank" class="border px-4 py-2 text-sm uppercase">
-    Download Resume
-  </a>
+  <hr class="mast-rule" aria-hidden="true">
 </header>
 
-<!-- CONTENT -->
-<section class="px-8 py-20 max-w-5xl mx-auto">
+<h1 class="sr-only">Thoughts</h1>
 
-  <h1 class="serif-display text-5xl mb-12">Thoughts</h1>
+<section class="thoughts-list" style="--i: 1">
 
-  <!-- Thought 1 -->
-  <div class="mb-10">
-    <h2 class="text-xl font-semibold mb-2">On Market Efficiency</h2>
-    <p class="text-sm text-gray-500 mb-2">April 2026</p>
-    <p>
-      Markets are efficient until they are not. Short-term inefficiencies often arise from behavioral biases, 
+  <article class="thought">
+    <h2 class="thought__title">On Market Efficiency</h2>
+    <p class="thought__date">April 2026</p>
+    <p class="thought__body">
+      Markets are efficient until they are not. Short-term inefficiencies often arise from behavioral biases,
       liquidity constraints, and structural delays in information processing.
     </p>
-  </div>
+  </article>
 
-  <!-- Thought 2 -->
-  <div class="mb-10">
-    <h2 class="text-xl font-semibold mb-2">Why Automation Matters in Finance</h2>
-    <p class="text-sm text-gray-500 mb-2">April 2026</p>
-    <p>
-      Automation reduces operational risk and improves decision speed. The ability to build systems that 
+  <article class="thought">
+    <h2 class="thought__title">Why Automation Matters in Finance</h2>
+    <p class="thought__date">April 2026</p>
+    <p class="thought__body">
+      Automation reduces operational risk and improves decision speed. The ability to build systems that
       process and visualize financial data in real time is a critical competitive advantage.
     </p>
-  </div>
+  </article>
 
-  <!-- Thought 3 -->
-  <div class="mb-10">
-    <h2 class="text-xl font-semibold mb-2">Transitioning into Quant Finance</h2>
-    <p class="text-sm text-gray-500 mb-2">April 2026</p>
-    <p>
-      The shift from traditional finance to quantitative roles requires a strong foundation in programming, 
+  <article class="thought">
+    <h2 class="thought__title">Transitioning into Quant Finance</h2>
+    <p class="thought__date">April 2026</p>
+    <p class="thought__body">
+      The shift from traditional finance to quantitative roles requires a strong foundation in programming,
       probability, and data analysis — but more importantly, the ability to think in systems.
     </p>
-  </div>
+  </article>
 
 </section>
 
