@@ -52,6 +52,12 @@
   line-height: 1.65;
   margin: 0 0 var(--space-lg);
 }
+
+.project__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-xl);
+}
 </style>
 </head>
 
@@ -89,7 +95,10 @@
       with moving averages, and enables normalized performance analysis across
       multiple companies.
     </p>
-    <a class="link-typographic" href="https://github.com/meghanalalkota07/finance-lab" target="_blank" rel="noopener">View on GitHub →</a>
+    <div class="project__links">
+      <a class="link-typographic" href="https://finance-lab.streamlit.app/" target="_blank" rel="noopener">View live app →</a>
+      <a class="link-typographic" href="https://github.com/meghanalalkota07/finance-lab" target="_blank" rel="noopener">View on GitHub →</a>
+    </div>
   </div>
 
 </section>
