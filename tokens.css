@@ -35,15 +35,15 @@
   --space-3xl: 6rem;
   --space-4xl: 9rem;
 
-  /* Type scale — 1.25 ratio */
-  --text-xs:   0.8rem;
-  --text-sm:   0.9rem;
-  --text-base: 1rem;
-  --text-md:   1.25rem;
-  --text-lg:   1.5625rem;
-  --text-xl:   1.9531rem;
-  --text-2xl:  2.4414rem;
-  --text-display: clamp(2.5rem, 4vw + 1.25rem, 4.75rem);
+  /* Type scale — 1.25 ratio, reduced 10% twice (19% total) */
+  --text-xs:   0.648rem;
+  --text-sm:   0.729rem;
+  --text-base: 0.81rem;
+  --text-md:   1.0125rem;
+  --text-lg:   1.265625rem;
+  --text-xl:   1.582rem;
+  --text-2xl:  1.9776rem;
+  --text-display: clamp(2.025rem, 3.24vw + 1.0125rem, 3.8475rem);
 
   /* Motion */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);

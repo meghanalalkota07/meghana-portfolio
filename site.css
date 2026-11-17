@@ -33,8 +33,8 @@ img { display: block; max-width: 100%; }
 .mast {
   display: grid;
   min-width: 0;
-  gap: var(--space-2xs);
-  padding: var(--space-xl) var(--space-lg) 0;
+  gap: var(--space-3xs);
+  padding: var(--space-sm) var(--space-lg) 0;
   text-align: center;
   opacity: 0;
   transform: translateY(8px);
@@ -47,7 +47,7 @@ img { display: block; max-width: 100%; }
   justify-content: flex-end;
   align-items: center;
   gap: var(--space-xs);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-2xs);
 }
 
 .mast-utility__sep {
@@ -92,10 +92,10 @@ img { display: block; max-width: 100%; }
   font-family: var(--font-display);
   font-weight: 600;
   font-style: normal;
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(1.1rem, 2.6vw, 1.5rem);
   letter-spacing: -0.01em;
   line-height: 1.05;
-  margin: var(--space-2xs) 0 0;
+  margin: var(--space-3xs) 0 0;
   overflow-wrap: anywhere;
   min-width: 0;
   max-width: 100%;
@@ -113,7 +113,7 @@ img { display: block; max-width: 100%; }
 
 .mast-nav {
   min-width: 0;
-  margin: var(--space-md) 0 0;
+  margin: var(--space-2xs) 0 0;
 }
 
 .mast-nav ul {
@@ -156,8 +156,8 @@ img { display: block; max-width: 100%; }
   border: 0;
   border-top: var(--rule-hair) solid var(--color-rule);
   border-bottom: var(--rule-hair) solid var(--color-rule);
-  height: 4px;
-  margin: var(--space-lg) 0 0;
+  height: 3px;
+  margin: var(--space-xs) 0 0;
 }
 
 /* ---------- Shared typographic link ---------- */
@@ -215,5 +215,5 @@ img { display: block; max-width: 100%; }
 /* ---------- Responsive ---------- */
 
 @media (min-width: 40rem) {
-  .mast-name { font-size: clamp(2.5rem, 5vw, 3.75rem); }
+  .mast-name { font-size: clamp(1.3rem, 2.6vw, 1.75rem); }
 }

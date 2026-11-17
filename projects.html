@@ -18,45 +18,150 @@
  * theme: custom · shared system, see index.html
  */
 
-.projects-list {
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
   max-width: 64rem;
   margin: 0 auto;
   padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  align-items: stretch;
   opacity: 0;
   transform: translateY(8px);
   animation: reveal var(--dur-long) var(--ease-out) forwards;
   animation-delay: calc(var(--i, 2) * 70ms);
 }
 
-.project {
-  max-width: 60ch;
-  padding-top: var(--space-xl);
-  border-top: var(--rule-hair) solid var(--color-rule);
+@media (min-width: 48rem) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-.project__title {
+.project-tile {
+  position: relative;
+  min-width: 0;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: 4px;
+  padding: var(--space-lg);
+  transition: border-color var(--dur-short) var(--ease-out);
+}
+
+.project-tile:hover,
+.project-tile:focus-within {
+  border-color: var(--color-accent);
+}
+
+/* Visually hidden but focusable — the real toggle control. */
+.project-tile__toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.project-tile__tab {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  cursor: pointer;
+}
+
+.project-tile__tab-text {
+  min-width: 0;
+}
+
+.project-tile__title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: var(--text-xl);
+  font-size: var(--text-md);
+  line-height: 1.3;
   margin: 0 0 var(--space-2xs);
+  overflow-wrap: anywhere;
 }
 
-.project__stack {
+.project-tile__stack {
   font-size: var(--text-sm);
   color: var(--color-ink-2);
-  margin: 0 0 var(--space-md);
+  margin: 0;
 }
 
-.project__desc {
+.project-tile__chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 0.15em;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: 50%;
+  font-size: var(--text-md);
+  line-height: 1;
+  color: var(--color-ink-2);
+  transition: transform var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out);
+}
+
+.project-tile:hover .project-tile__chevron {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.project-tile__toggle:focus-visible ~ .project-tile__tab {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.project-tile__wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-long) var(--ease-in-out);
+}
+
+.project-tile__body-inner {
+  overflow: hidden;
+}
+
+.project-tile__body-inner-pad {
+  padding-top: var(--space-md);
+}
+
+.project-tile__desc {
   font-size: var(--text-base);
   line-height: 1.65;
-  margin: 0 0 var(--space-lg);
+  margin: 0;
 }
 
-.project__links {
+.project-tile__desc + .project-tile__desc {
+  margin-top: var(--space-md);
+}
+
+.project-tile__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md) var(--space-xl);
+  gap: var(--space-md) var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.project-tile__toggle:checked ~ .project-tile__wrap {
+  grid-template-rows: 1fr;
+}
+
+.project-tile__toggle:checked ~ .project-tile__tab .project-tile__chevron {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-tile__wrap {
+    transition: none;
+  }
 }
 </style>
 </head>
@@ -83,21 +188,167 @@
 
 <h1 class="sr-only">Projects</h1>
 
-<section class="projects-list" style="--i: 1">
+<section class="projects-grid" style="--i: 1">
 
-  <div class="project">
-    <h2 class="project__title">Finance Lab</h2>
-    <p class="project__stack">Python, Streamlit, Pandas, Plotly, Yahoo Finance</p>
-    <p class="project__desc">
-      An interactive financial research platform for exploring historical stock
-      performance, valuation metrics, and peer comparisons. The application
-      fetches and caches market data, provides interactive candlestick charts
-      with moving averages, and enables normalized performance analysis across
-      multiple companies.
-    </p>
-    <div class="project__links">
-      <a class="link-typographic" href="https://finance-lab.streamlit.app/" target="_blank" rel="noopener">View live app →</a>
-      <a class="link-typographic" href="https://github.com/meghanalalkota07/finance-lab" target="_blank" rel="noopener">View on GitHub →</a>
+  <div class="project-tile">
+    <input type="checkbox" id="project-financelab" class="project-tile__toggle">
+    <label class="project-tile__tab" for="project-financelab">
+      <span class="project-tile__tab-text">
+        <h2 class="project-tile__title">Finance Lab</h2>
+        <p class="project-tile__stack">Python, Streamlit, Pandas, Plotly, Yahoo Finance</p>
+      </span>
+      <span class="project-tile__chevron" aria-hidden="true">+</span>
+    </label>
+    <div class="project-tile__wrap">
+      <div class="project-tile__body-inner">
+        <div class="project-tile__body-inner-pad">
+          <p class="project-tile__desc">
+            An interactive financial research platform for exploring historical stock
+            performance, valuation metrics, and peer comparisons. The application
+            fetches and caches market data, provides interactive candlestick charts
+            with moving averages, and enables normalized performance analysis across
+            multiple companies.
+          </p>
+          <div class="project-tile__links">
+            <a class="link-typographic" href="https://finance-lab.streamlit.app/" target="_blank" rel="noopener">View live app →</a>
+            <a class="link-typographic" href="https://github.com/meghanalalkota07/finance-lab" target="_blank" rel="noopener">View on GitHub →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-tile">
+    <input type="checkbox" id="project-cfa" class="project-tile__toggle">
+    <label class="project-tile__tab" for="project-cfa">
+      <span class="project-tile__tab-text">
+        <h2 class="project-tile__title">CFA Institute Research Challenge — Lancaster Colony (LANC)</h2>
+        <p class="project-tile__stack">Equity Research, DCF Valuation, Comparable Company Analysis, ESG Scoring</p>
+      </span>
+      <span class="project-tile__chevron" aria-hidden="true">+</span>
+    </label>
+    <div class="project-tile__wrap">
+      <div class="project-tile__body-inner">
+        <div class="project-tile__body-inner-pad">
+          <p class="project-tile__desc">
+            Representing the University of Cincinnati in the CFA Institute Research Challenge, I worked with a team
+            of five to produce a 15-page equity research report on Lancaster Colony Corporation (NASDAQ: LANC),
+            presented to a panel of industry professionals.
+          </p>
+          <p class="project-tile__desc">
+            We found a company that looked safe but not dynamic — a current ratio averaging 2.14, declining retail
+            margins, and a growth story leaning on licensed products (Chick-fil-A sauces, Olive Garden dressings)
+            rather than organic growth. A full DCF alongside comparable company analysis, forecasting five years out,
+            led us to issue a Sell: a target price of $125.30 against a closing price of $192.89 — a 29.8% downside.
+          </p>
+          <div class="project-tile__links">
+            <a class="link-typographic" href="Projects/cfa-challenge/lancaster-colony-presentation.pdf" target="_blank" rel="noopener">View presentation →</a>
+            <a class="link-typographic" href="Projects/cfa-challenge/lancaster-colony-report.pdf" target="_blank" rel="noopener">Read full report →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-tile">
+    <input type="checkbox" id="project-ma" class="project-tile__toggle">
+    <label class="project-tile__tab" for="project-ma">
+      <span class="project-tile__tab-text">
+        <h2 class="project-tile__title">Mergers &amp; Acquisitions — General Mills' Strategic Move: Acquiring Lancaster Colony</h2>
+        <p class="project-tile__stack">M&amp;A Analysis, DCF Valuation, NOPAT/FCFF Modeling, SWOT Analysis</p>
+      </span>
+      <span class="project-tile__chevron" aria-hidden="true">+</span>
+    </label>
+    <div class="project-tile__wrap">
+      <div class="project-tile__body-inner">
+        <div class="project-tile__body-inner-pad">
+          <p class="project-tile__desc">
+            Working in a team of six, I valued both companies independently before touching the deal logic, because
+            an acquisition case built on a bad standalone valuation is worthless. For General Mills — 150+ years old,
+            100+ brands, four segments (North America Retail, International, Pet, North America Foodservice) — I
+            built a five-year DCF: EBIT growing from $3.05B to $3.71B, a 7.28% WACC, 3% terminal growth, arriving at
+            $66.84 per share. For Lancaster Colony, a second DCF at a 6.5% WACC and 2% terminal growth produced
+            $184.45 per share on a firm value of roughly $5.06 billion.
+          </p>
+          <p class="project-tile__desc">
+            Then the combination. Using a NOPAT/FCFF framework, I modeled the merged company's sales growing from
+            $22.96B to $27.26B over five years, producing a combined firm value of about $57.1 billion and a
+            per-share value of $95.90. I cross-checked both DCFs against market multiples rather than trusting one
+            method, and built the strategic case on top of the numbers: Lancaster's specialty portfolio (Marzetti,
+            New York Bakery, Sister Schubert's) diversifies General Mills' offerings, its retail and foodservice
+            distribution accelerates market penetration, and procurement, manufacturing, and supply-chain
+            integration drives the margin story. A full SWOT and an industry analysis — plant-based growth,
+            sustainability and traceability trends, the casual-dining shift — framed where the combined company
+            wins and where it is exposed. The integration case supports an estimated 13.5% EBITDA increase and
+            roughly $333 million in revenue growth.
+          </p>
+          <div class="project-tile__links">
+            <a class="link-typographic" href="Projects/cfa-challenge/general-mills-lancaster-colony-ma-presentation.pptx" target="_blank" rel="noopener">View presentation →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-tile">
+    <input type="checkbox" id="project-fund" class="project-tile__toggle">
+    <label class="project-tile__tab" for="project-fund">
+      <span class="project-tile__tab-text">
+        <h2 class="project-tile__title">Multi-Factor Long-Only Fund — Value, Quality &amp; Momentum</h2>
+        <p class="project-tile__stack">Python, Factor Investing, Backtesting</p>
+      </span>
+      <span class="project-tile__chevron" aria-hidden="true">+</span>
+    </label>
+    <div class="project-tile__wrap">
+      <div class="project-tile__body-inner">
+        <div class="project-tile__body-inner-pad">
+          <p class="project-tile__desc">
+            I developed the fund in Python (March 2024), screening for stocks that score well across three factors
+            rather than betting on any single one: value to avoid overpaying, quality to avoid value traps, and
+            momentum to avoid catching falling knives. The factors are combined into a single long-only portfolio —
+            no leverage, no shorting — which keeps the strategy honest: if it works, it works because the stock
+            selection works.
+          </p>
+          <p class="project-tile__desc">
+            The result: over three years the fund returned 12.5%, outperforming the market by 3.2%.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="project-tile">
+    <input type="checkbox" id="project-econ" class="project-tile__toggle">
+    <label class="project-tile__tab" for="project-econ">
+      <span class="project-tile__tab-text">
+        <h2 class="project-tile__title">Econometrics Final Project — Forecasting the German Economy</h2>
+        <p class="project-tile__stack">Econometrics, Time Series Forecasting, Granger Causality Testing</p>
+      </span>
+      <span class="project-tile__chevron" aria-hidden="true">+</span>
+    </label>
+    <div class="project-tile__wrap">
+      <div class="project-tile__body-inner">
+        <div class="project-tile__body-inner-pad">
+          <p class="project-tile__desc">
+            The question: can you build a forecasting model for a real economy — German real GDP, interest rates,
+            and unemployment — that beats a simple benchmark, and can you say what actually drives what? Macro data
+            is unforgiving: series trend, wander, and mislead, so the first stage was stationarity testing on all
+            three variables — a model built on non-stationary data produces confident nonsense. From there, I
+            estimated dynamic regression models linking GDP, interest rates, and unemployment, examined the
+            seasonality in the data (the German economy has strong seasonal rhythms), and ran a Granger causality
+            test to ask the harder question: does one variable actually help predict another, or do they just move
+            together?
+          </p>
+          <p class="project-tile__desc">
+            Model selection was done the honest way — out-of-sample-style forecast accuracy. My best specification,
+            a dynamic model with seasonal dummies, achieved an RMSE of 2.679 against 2.743 for the average
+            benchmark model: a modest edge, reported as exactly that.
+          </p>
+          <div class="project-tile__links">
+            <a class="link-typographic" href="Projects/econometrics/forecasting-german-economy.docx" target="_blank" rel="noopener">Read full project →</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 

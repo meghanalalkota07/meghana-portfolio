@@ -1,11 +1,16 @@
+import os
+
 from fredapi import Fred
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # ==========================================
 # FRED API KEY
+# Set this in your shell before running:
+#   export FRED_API_KEY='your-key-here'
+# Get a free key at https://fred.stlouisfed.org/docs/api/api_key.html
 # ==========================================
-fred = Fred(api_key='876a40e1a402d420e04b8345228520f2')
+fred = Fred(api_key=os.environ['FRED_API_KEY'])
 
 # ==========================================
 # TREASURY SERIES
