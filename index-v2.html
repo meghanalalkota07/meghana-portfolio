@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Meghana Lalkota — Financial Analyst (draft)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,200..800;1,200..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="site.css">
+
+<style>
+/* Hallmark · macrostructure: Photographic · genre: editorial · nav: N6 · footer: none
+ * theme: custom · vibe: "sunflower gold, sunset warmth, quiet editorial portrait" · paper: oklch(96% 0.016 70) · accent: oklch(58% 0.16 82)
+ * display: Newsreader · body: Manrope · axes: light / roman-serif / chromatic-amber (~82°)
+ * DRAFT — experiment page, not linked from nav. See index.html for the live homepage.
+ */
+
+/* ---------- Hero row: text left, photo right (macrostructure 08, contained size) ---------- */
+
+.hero-row {
+  display: grid;
+  gap: var(--space-xl) var(--space-2xl);
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-lg) var(--space-3xl);
+  align-items: start;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: reveal var(--dur-long) var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 1) * 70ms);
+}
+
+.intro {
+  min-width: 0;
+  max-width: 62ch;
+}
+
+.intro__lede {
+  font-size: var(--text-md);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.photo-fold {
+  min-width: 0;
+  width: 100%;
+  max-width: 22rem;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  justify-self: center;
+}
+
+.photo-fold__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.photo-fold__caption {
+  margin: var(--space-sm) 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  color: var(--color-ink-2);
+}
+
+.photo-fold__credentials {
+  list-style: none;
+  margin: var(--space-xs) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3xs);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--color-ink-2);
+  line-height: 1.5;
+}
+
+@media (min-width: 40rem) {
+  .hero-row { grid-template-columns: 1.2fr 1fr; }
+  .photo-fold { justify-self: end; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="mast" style="--i: 0">
+  <div class="mast-utility">
+    <a class="mast-resume" href="resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <span class="mast-utility__sep" aria-hidden="true">·</span>
+    <a class="mast-contact" href="https://mail.google.com/mail/?view=cm&fs=1&to=meghanalalkota630@gmail.com" target="_blank" rel="noopener">Contact</a>
+  </div>
+  <p class="mast-line">Financial Analyst · Data, Modeling &amp; Automation</p>
+  <h1 class="mast-name">Meghana Lalkota</h1>
+  <nav class="mast-nav" aria-label="Primary">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="thoughts.html">Thoughts</a></li>
+    </ul>
+  </nav>
+  <hr class="mast-rule" aria-hidden="true">
+</header>
+
+<section class="hero-row" style="--i: 1">
+  <div class="intro">
+    <p class="intro__lede">
+      Hi, I'm <B>Meghana</B>.</br>
+      <br>Most people call me <B>Maggi</B>. Yes - like the instant noodles. </br>
+      <br>I work in Finance - spending an unreasonable amount of time investigating companies, markets. I have a master's in Economics & Finance.. </br>
+      <br>Apart from this I have slightly concerning intersts in things that make my neurons physically change (I put them through hell..):</br>
+
+    </p>
+  </div>
+  <figure class="photo-fold">
+    <img
+      class="photo-fold__img"
+      src="images/profile.jpeg"
+      alt="Meghana Lalkota smiling at dusk, holding a bouquet of sunflowers."
+      width="2000"
+      height="1500"
+      fetchpriority="high">
+    <figcaption class="photo-fold__caption">Some evenings end in sunflowers.</figcaption>
+    <ul class="photo-fold__credentials">
+      <li>MS Finance — University of Cincinnati (OH, United States of America)</li>
+      <li>MA Economics — Osmania University (TS, India)</li>
+    </ul>
+  </figure>
+</section>
+
+</body>
+</html>
